@@ -112,6 +112,14 @@ To preview the production build:
 │       └── SignUp.vue
 └── vite.config.js
 ```
+
+## Integration with Unity Manager API
+
+This project utilizes the Unity Manager API to manage and orchestrate various components. This API is crucial for the functionality of our project as it provides essential management capabilities.
+
+### API Documentation and Access
+You can find more details about the Unity Manager API, including how to obtain access and integrate it with your projects, by visiting the following link: [Unity Manager API Documentation](https://github.com/O-clock-Muffin/projet-gestionnaire-projet-back). Please refer to the API's own README for comprehensive documentation and setup instructions.
+
 ## Dependencies
 - **@fortawesome/fontawesome-svg-core**: ^6.5.2
 - **@fortawesome/free-brands-svg-icons**: ^6.5.2
