@@ -6,7 +6,7 @@
 - **Private**: Yes
 - **Type**: module
 - **Description**: Unity Manager is a dynamic project management application featuring real-time collaboration tools, including an integrated chat system. It allows teams to efficiently manage tasks, track project progress, and communicate seamlessly within a single platform.
-- **Author**: Kheang TE, Mohamed ZERROUKI, Xavier Ladron, Henry Iosipov
+- **Author**: Kheang TE, Mohamed ZERROUKI, Xavier Landron, Henry Iosipov
 - **License**: ISC
 
 ## Getting Started
@@ -28,7 +28,7 @@ Make sure you have the following installed:
 3. Install the dependencies:
     ```sh
     npm install
-    ```- **Description**: This template should help get you started developing with Vue 3 in Vite.
+    ```
     or
     ```sh
     yarn install
