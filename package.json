@@ -17,7 +17,10 @@
     "axios": "^1.7.1",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-next": "^0.17.6",
+<<<<<<< HEAD
+=======
     "pinia": "^2.1.7",
+>>>>>>> 7e5dac401057fe5169c2a56ddef3cbb44a2b34ff
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "vue": "^3.4.27",
