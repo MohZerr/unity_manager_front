@@ -1,4 +1,3 @@
-import { emitMessageCreation } from '@/sockets/socket.js';
 import axios from './axios';
 
 export async function createMessage(messageData) {
@@ -8,9 +7,6 @@ export async function createMessage(messageData) {
       project_id,
       content,
     });
-    if (message) {
-      emitMessageCreation();
-    }
     return message.data;
   } catch (error) {
     console.error(error);

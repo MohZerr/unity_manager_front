@@ -1,5 +1,4 @@
 import axios from './axios';
-import { emitBoardEdition } from '@/sockets/socket.js';
 
 export async function createTag(tagData) {
   console.log(tagData);
@@ -9,9 +8,6 @@ export async function createTag(tagData) {
       code_color: tagData.code_color,
       project_id: tagData.project_id,
     });
-    if (tag) {
-      emitBoardEdition();
-    }
     return tag.data;
   } catch (error) {
     console.error(error);
@@ -22,9 +18,6 @@ export async function createTag(tagData) {
 export async function deleteTag(tagId) {
   try {
     const deletedTag = await axios.delete(`/tags/${tagId}`);
-    if (deletedTag) {
-      emitBoardEdition();
-    }
     return true;
   } catch (error) {
     console.error(error);
@@ -39,10 +32,6 @@ export async function updateTag(tagData) {
       code_color: tagData.code_color,
       project_id: tagData.project_id,
     });
-
-    if (tag) {
-      emitBoardEdition();
-    }
     return tag.data;
   } catch (error) {
     console.error(error);
