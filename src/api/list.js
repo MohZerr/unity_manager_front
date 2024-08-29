@@ -1,5 +1,4 @@
 import axios from './axios';
-import { emitBoardEdition } from '@/sockets/socket.js';
 
 export async function createList(listData) {
   try {
@@ -9,10 +8,6 @@ export async function createList(listData) {
       code_color: listData.code_color,
       project_id: listData.project_id,
     });
-
-    if (list) {
-      emitBoardEdition();
-    }
     return list.data;
   } catch (error) {
     console.error(error);
@@ -23,9 +18,6 @@ export async function createList(listData) {
 export async function deleteList(listId) {
   try {
     const list = await axios.delete(`/lists/${listId}`);
-    if (list) {
-      emitBoardEdition();
-    }
     return true;
   } catch (error) {
     console.error(error);
@@ -41,10 +33,6 @@ export async function updateList(listData) {
       code_color: listData.code_color,
       project_id: listData.project_id,
     });
-
-    if (list) {
-      emitBoardEdition();
-    }
     return list.data;
   } catch (error) {
     console.error(error);
@@ -55,8 +43,6 @@ export async function updateList(listData) {
 export async function getListByProject(projectId) {
   try {
     const lists = await axios.get(`/lists/projects/${projectId}`);
-    console.log(lists);
-    console.log(lists.data);
     return lists.data;
   } catch (error) {
     console.error(error);
