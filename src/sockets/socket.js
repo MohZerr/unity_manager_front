@@ -36,11 +36,6 @@ function initializeCollaboratorReceived(onCollaboratorReceived) {
   });
 }
 // --------------------board-------------------------
-const emitBoardEdition = () => {
-  try {
-    socket.emit('boardEvent');
-  } catch (error) { console.error(error); }
-};
 
 function initializeBoardEvents(refreshBoard) {
   socket.on('refreshBoard', () => {
@@ -50,13 +45,8 @@ function initializeBoardEvents(refreshBoard) {
   });
 }
 // ---------------messages----------------------------
-const emitMessageCreation = () => {
-  try {
-    socket.emit('messageCreation');
-  } catch (error) { console.error(error); }
-};
 function initializeMessageReceived(onMessageReceived) {
-  socket.on('receiveMessage', (message) => {
+  socket.on('refreshMessage', (message) => {
     if (onMessageReceived) {
       onMessageReceived(message);
     }
@@ -65,8 +55,6 @@ function initializeMessageReceived(onMessageReceived) {
 
 export {
   emitNewCollaborator,
-  emitBoardEdition,
-  emitMessageCreation,
   initializeBoardEvents,
   initializeCollaboratorReceived,
   initializeMessageReceived,
