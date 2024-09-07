@@ -1,6 +1,7 @@
 import axios from './axios';
 
 export async function createCard(cardData) {
+  console.log(cardData);
   try {
     const card = await axios.post('/cards', {
       name: cardData.name,
@@ -8,6 +9,7 @@ export async function createCard(cardData) {
       content: cardData.content,
       list_id: cardData.list_id,
       tags: cardData.tags,
+      project_id: cardData.project_id,
     });
     return card.data;
   } catch (error) {
@@ -34,7 +36,18 @@ export async function updateCard(cardData) {
       content: cardData.content,
       list_id: cardData.list_id,
       tags: cardData.tags,
+      project_id: cardData.project_id,
     });
+    return card.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export async function getCard(cardId) {
+  try {
+    const card = await axios.get(`/cards/${cardId}`);
     return card.data;
   } catch (error) {
     console.error(error);

@@ -36,28 +36,21 @@ function initializeCollaboratorReceived(onCollaboratorReceived) {
   });
 }
 // --------------------board-------------------------
-
 function initializeBoardEvents(refreshBoard) {
   socket.on('refreshBoard', () => {
+    console.log('refreshBoardEvent');
     if (refreshBoard) {
       refreshBoard();
     }
   });
 }
-// ---------------messages----------------------------
-function initializeMessageReceived(onMessageReceived) {
-  socket.on('refreshMessage', (message) => {
-    if (onMessageReceived) {
-      onMessageReceived(message);
-    }
-  });
-}
+
+
 
 export {
   emitNewCollaborator,
   initializeBoardEvents,
   initializeCollaboratorReceived,
-  initializeMessageReceived,
   connecting,
   joinProjectRoom,
   leaveProjectRoom,
