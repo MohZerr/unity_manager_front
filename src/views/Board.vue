@@ -6,7 +6,7 @@
       <header id="board-header">
         <h1>{{ boardStore.selectedProject?.name }}</h1>
       </header>
-      <div id="board-body">
+      <div v-if="boardStore.selectedProject.id" id="board-body">
         <draggable v-if="boardStore.lists" v-model="boardStore.selectedProject.lists" class="list-container"
           item-key="id" v-bind="dragOptions" @end="updatePositionList">
           <template #item="{ element: list }">
@@ -38,11 +38,11 @@ import useBoardStore from '@/store/board.store';
 import BoardHeader from '@/components/BoardHeader.vue';
 import { createList, getListByProject, updateList } from '@/api/list.js';
 import { getTagsByProject } from '@/api/tag.js';
-import { initializeBoardEvents } from '@/sockets/socket';
 
 export default {
   setup() {
     const boardStore = useBoardStore();
+    boardStore.initializeWebSocketEvents();
     const newList = {};
     const editList = {};
     const editCard = {};
@@ -59,15 +59,8 @@ export default {
     BoardHeader,
     List,
   },
-  created() {
-    initializeBoardEvents(this.refreshBoard);
-  },
-  methods: {
-    async refreshBoard() {
-      this.boardStore.selectedProject.lists = await getListByProject(this.boardStore.selectedProject.id);
-      this.boardStore.selectedProject.tags = await getTagsByProject(this.boardStore.selectedProject.id);
-    },
-    async addList() {
+
+  methods: {    async addList() {
       try {
         const list = {
           name: this.newList.name,
@@ -91,6 +84,7 @@ export default {
      * @return {void} This function does not return anything.
      */
     updatePositionList(event) {
+      console.log('eventList',event);
       const movedList = this.boardStore.selectedProject.lists[event.newIndex];
       const beforeList = this.boardStore.selectedProject.lists[event.newIndex - 1];
       const afterList = this.boardStore.selectedProject.lists[event.newIndex + 1];
@@ -124,7 +118,7 @@ export default {
           name: this.editList.name,
           code_color: this.editList.code_color,
           position: movedList.position,
-          project_id: movedList.project_id,
+          project_id: this.boardStore.project.id,
         });
       } catch (error) {
         console.error('Error updating the list :', error);

@@ -92,7 +92,6 @@ export default {
       default: null,
     },
   },
-
   methods: {
     async submitAddCard(listId) {
       try {
@@ -111,14 +110,14 @@ export default {
 
     async updateCard(card) {
       try {
-        const { selectTags } = this.editedCard;
         const editCard = {
           id: card.id,
           name: this.editedCard.name,
           position: card.position,
           content: this.editedCard.content,
           list_id: card.list_id,
-          tags: selectTags,
+          tags: this.editedCard.selectTags,
+          project_id: this.boardStore.project.id,
         };
 
         await updateCard(editCard);
@@ -146,7 +145,7 @@ export default {
       const modal = document.getElementById(`edit-card-${cardId}`);
       this.editedCard.selectTags = [];
       modal.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
-        this.editedCard.selectTags.push(checkbox._value.id);
+        this.editedCard.selectTags.push(checkbox._value);
       });
     },
   },

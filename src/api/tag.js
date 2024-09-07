@@ -15,9 +15,9 @@ export async function createTag(tagData) {
   }
 }
 
-export async function deleteTag(tagId) {
+export async function deleteTag(tagData) {
   try {
-    const deletedTag = await axios.delete(`/tags/${tagId}`);
+    const deletedTag = await axios.delete(`/tags/${tagData.id}`,{project_id:tagData.project_id});
     return true;
   } catch (error) {
     console.error(error);
