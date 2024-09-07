@@ -109,6 +109,7 @@ export default {
     Card,
   },
   computed: {
+
     dragOptions() {
       return {
         animation: 200,
@@ -132,6 +133,7 @@ export default {
           code_color: this.newCard.code_color,
           list_id: id,
           tags: this.newCard.selectTags,
+          project_id: this.boardStore.project.id,
         };
         await createCard(cardData);
         this.newCard.name = '';
@@ -156,8 +158,8 @@ export default {
           id: list.id,
           name: this.editList.name,
           code_color: this.editList.code_color,
-          position: 1,
-          project_id: list.project_id,
+          position: list.position,
+          project_id: this.boardStore.project.id,
         });
       } catch (error) {
         console.error('Error updating the list:', error);
@@ -165,19 +167,19 @@ export default {
     },
 
     updatePositionCard(listId, event) {
-      console.log('list id : ', listId);
-      console.log('card : ', event);
-
       if (Object.hasOwn(event, 'moved')) {
         const movedCard = this.list.cards[event.moved.newIndex];
         const beforeMovedCard = this.list.cards[event.moved.newIndex - 1];
         const afterMovedCard = this.list.cards[event.moved.newIndex + 1];
+        console.log(movedCard);
+        console.log(beforeMovedCard);
+        console.log(afterMovedCard);
         if (!beforeMovedCard) {
-          movedCard.position = afterMovedCard ? afterMovedCard.position / 2 : 1;
+          movedCard.position = afterMovedCard ? afterMovedCard.position*0.99 : 1;
         } else if (!afterMovedCard) {
           movedCard.position = beforeMovedCard.position + 1;
         } else {
-          movedCard.position = (beforeMovedCard.position + afterMovedCard.position) / 2;
+          movedCard.position = (beforeMovedCard.position + afterMovedCard.position)*0.99;
         }
         movedCard.list_id = listId;
         this.savePositionCard(movedCard);
@@ -186,8 +188,11 @@ export default {
         const addedCard = this.list.cards[event.added.newIndex];
         const beforeAddedCard = this.list.cards[event.added.newIndex - 1];
         const afterAddedCard = this.list.cards[event.added.newIndex + 1];
+        console.log(addedCard);
+        console.log(beforeAddedCard);
+        console.log(afterAddedCard);
         if (!beforeAddedCard) {
-          addedCard.position = afterAddedCard ? afterAddedCard.position / 2 : 1;
+          addedCard.position = afterAddedCard ? afterAddedCard.position / 2:1;
         } else if (!afterAddedCard) {
           addedCard.position = beforeAddedCard.position + 1;
         } else {
@@ -199,15 +204,16 @@ export default {
     },
 
     async savePositionCard(movedCard) {
+      console.log(movedCard);
       try {
-        const tags = movedCard.tags.map((tag) => tag.id);
         const card = {
           id: movedCard.id,
           name: movedCard.name,
           position: movedCard.position,
           content: movedCard.content,
           list_id: movedCard.list_id,
-          tags,
+          tags: movedCard.tags,
+          project_id: this.boardStore.project.id,
         };
         await updateCard(card);
       } catch (error) {

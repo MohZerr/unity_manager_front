@@ -49,10 +49,9 @@
  */
 import { computed } from 'vue';
 import {
-  initializeMessageReceived,
   initializeCollaboratorReceived,
 } from '@/sockets/socket.js';
-import { createMessage, getMessagesbyProject } from '@/api/message.js';
+import { createMessage } from '@/api/message.js';
 import useBoardStore from '../store/board.store';
 import useUserStore from '../store/user.store';
 
@@ -81,8 +80,7 @@ export default {
     };
   },
   created() {
-    initializeCollaboratorReceived(this.handleCollaboratorReceived);
-    initializeMessageReceived(this.handleMessageReceived);
+    initializeCollaboratorReceived(this.handleAddCollaborator);
   },
 
   /**
@@ -108,14 +106,16 @@ export default {
     updateProject(project) {
       this.boardStore.selectedProject = { ...project };
     },
-    async handleCollaboratorReceived() {
-      this.boardStore.fetchLastCollaborator();
+
+
+    async handleAddCollaborator() {
+      this.boardStore.updateCollaborators();
     },
 
     async handleMessageReceived() {
-      useBoardStore().selectedProject.messages = await getMessagesbyProject(useBoardStore().selectedProject.id);
+      this.boardStore.refreshChat();
       this.scrollToBottom();
-    },
+  },
     handleChatStateReceived(data) {
       this.users = data.users;
       this.messages = data.messages.map((msg) => ({ user: msg.user, text: msg.message }));
@@ -133,7 +133,7 @@ export default {
 
       createMessage({
         content: trimmedMessage,
-        project_id: useBoardStore().selectedProject.id,
+        project_id: this.boardStore.selectedProject.id,
       })
         .then(() => {
           this.message = '';
@@ -186,18 +186,11 @@ export default {
   font-size: 0.8rem;
 }
 
-<<<<<<< Updated upstream
 .me-username {
   background-color: #267699;
   padding: 2px 5px;
   border-radius: 3px;
 }
-=======
-  .me-username {
-    padding: 2px 5px;
-    border-radius: 3px;
-  }
->>>>>>> Stashed changes
 
 .text {
   padding-top: 0.5rem;

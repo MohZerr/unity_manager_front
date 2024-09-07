@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
-import { createTag, updateTag, deleteTag } from '@/api/tag.js';
+import { createTag, updateTag, deleteTag, getTagsByProject } from '@/api/tag.js';
+
 
 const useTagStore = defineStore('tag', {
   state: () => ({
@@ -33,20 +34,25 @@ const useTagStore = defineStore('tag', {
 
     setSelectedTags(tags) {
       this.selectedTags = tags;
+      this.selectedTags.sort((a, b) => ((a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : -1));
     },
 
     addTag(newTag) {
-      createTag(newTag);
+      console.log('addTag');
+      createTag({...newTag, project_id: this.tag.project_id});
     },
 
     editTag(editedTag) {
-      updateTag(editedTag);
+      console.log('editedTag');
+      updateTag({...editedTag, project_id: this.tag.project_id});
     },
 
-    removeTag(tagId) {
-      deleteTag(tagId);
+    removeTag(removedTagId) {
+      deleteTag({
+    id: removedTagId,
+    project_id: this.tag.project_id
+  });
     },
-
   },
   getters: {
     getColors: (state) => state.colors,

@@ -1,12 +1,16 @@
 import { joinProjectRoom, emitNewCollaborator } from '@/sockets/socket';
 import axios from './axios';
+import useBoardStore from '@/store/board.store';
+
 
 export async function getProject(projectId) {
   try {
+    const boardStore = useBoardStore();
     const project = await axios.get(`/projects/${projectId}/details`);
     const projectInfo = { id: project.data.id, name: project.data.name };
     if (project) {
       joinProjectRoom(projectInfo);
+      boardStore.setProject(project.data);
     }
     return project.data;
   } catch (error) {

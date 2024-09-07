@@ -25,4 +25,15 @@ axios.interceptors.response.use(
   },
 );
 
+axios.interceptors.request.use((config) => {
+  const projectId = localStorage.getItem('projectId');
+  if (projectId) {
+    // if its a delete
+    if (config.method === 'delete') {
+      config.params = { ...config.params, project_id: projectId };
+    }
+  }
+  return config;
+});
+
 export default axios;
