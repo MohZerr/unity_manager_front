@@ -21,7 +21,7 @@
                 <b-form-group label="Tag Color">
                   <b-form-select v-model="tagColor" @change="updateSelectColor">
                     <b-form-select-option :value="null">-- Select a color --</b-form-select-option>
-                    <b-form-select-option v-for="color in tagStore.getColors" :key="color.name" :value="color.code">
+                    <b-form-select-option  :style="{ color: color.code, fontWeight: 'bold' }"  class="tag-color-" v-for="color in tagStore.getColors" :key="color.name" :value="color.code">
                       {{ color.name }}
                     </b-form-select-option>
                   </b-form-select>
@@ -106,6 +106,7 @@ import { ref, computed } from 'vue';
 import useBoardStore from '@/store/board.store';
 import useTagStore from '@/store/tag.store.js';
 
+
 export default {
   name: 'Tag',
 
@@ -145,19 +146,28 @@ export default {
     },
 
     updateTagName() {
+      this.tagStore.setProjectId(this.boardStore.project.id);
       this.tagStore.setTagName(this.tagName);
     },
 
     updateSelectColor() {
+      this.tagStore.setProjectId(this.boardStore.project.id);
       this.tagStore.setTagColor(this.tagColor);
     },
 
     updateTag(editedTag) {
+      this.tagStore.setProjectId(this.boardStore.project.id);
       this.tagStore.editTag(editedTag);
     },
 
-    deleteTag(tagId) {
-      this.tagStore.removeTag(tagId);
+   async updateTags() {
+      console.log('update tags');
+      this.boardStore.refreshTags()
+    },
+
+    deleteTag(deletedTag) {
+      this.tagStore.setProjectId(this.boardStore.project.id);
+      this.tagStore.removeTag(deletedTag);
     },
 
   },
