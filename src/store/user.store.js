@@ -9,6 +9,7 @@ const useUserStore = defineStore('user', {
       email: null,
       code_color: null,
     },
+    
   }),
   actions: {
     persistToLocalStorage() {
