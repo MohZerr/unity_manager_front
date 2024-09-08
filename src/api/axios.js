@@ -1,5 +1,6 @@
 import axios from 'axios';
 import handleTokenExpiry from '@/utils/handleTokenExpiry';
+import handleAdminRole from '@/utils/handleAdminRole';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:4000/api';
@@ -13,6 +14,10 @@ axios.interceptors.response.use(
       // Check if the error is due to an expired token
       if (error.response.status === 401) {
         handleTokenExpiry();
+      }
+      // Check if the user has admin permissions
+      if (error.response.status === 403) {
+        handleAdminRole(false);
       }
       // Use Promise.reject to propagate the error correctly in the promise chain.
       // This ensures that the error is handled by subsequent `catch` blocks in the chain,
