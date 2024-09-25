@@ -1,6 +1,7 @@
 <template>
   <div class="list">
     <div class="list-header" :style="{ 'background-color': list.code_color }">
+    {{console.log("list",list)}}
       <h2>{{ list.name }}</h2>
       <div class="list-controls">
         <b-dropdown no-caret>
@@ -128,7 +129,7 @@ export default {
       try {
         const cardData = {
           name: this.newCard.name,
-          position: this.list.cards.length + 1,
+          position: this.list.cards ? this.list.cards.length + 1 : 1,
           content: this.newCard.content,
           code_color: this.newCard.code_color,
           list_id: id,
