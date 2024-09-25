@@ -2,9 +2,12 @@ import axios from 'axios';
 import handleTokenExpiry from '@/utils/handleTokenExpiry';
 import handleAdminRole from '@/utils/handleAdminRole';
 
-const {VITE_PROD_URL, VITE_DEV_URL} = import.meta.env;
+const {VITE_PROD_URL, VITE_DEV_URL,VITE_ENV} = import.meta.env;
+const apiUrl = VITE_ENV === 'prod'
+  ? VITE_PROD_URL
+  : VITE_DEV_URL;
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = import.meta.env.VITE_ENV === 'prod' ?  VITE_PROD_URL : VITE_DEV_URL;
+axios.defaults.baseURL = apiUrl+'/api';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // Add a request interceptor
