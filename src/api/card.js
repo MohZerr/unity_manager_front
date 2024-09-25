@@ -1,7 +1,7 @@
 import axios from './axios';
 
 export async function createCard(cardData) {
-  console.log(cardData);
+  
   try {
     const card = await axios.post('/cards', {
       name: cardData.name,

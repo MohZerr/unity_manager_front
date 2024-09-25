@@ -22,7 +22,7 @@ const useBoardStore = defineStore('board', {
       localStorage.setItem('projectId', JSON.stringify(this.selectedProject.id));
     },
     setProject(project) {
-      console.log('setProject', project);
+      
       this.selectedProject = project;
       this.persistToLocalStorage();
     },
@@ -90,7 +90,7 @@ const useBoardStore = defineStore('board', {
         this.refreshMessage(data);
       });
       socket.on('refreshTag', (data) => {
-        console.log('refreshTagSocket');
+        
         this.refreshTags(data);
       });
       socket.on('refreshList', (data) => {
@@ -111,7 +111,7 @@ const useBoardStore = defineStore('board', {
         });
       }
       if(data.verb === 'create') {
-        console.log(data);
+        
         data.result.user = this.selectedProject.collaborators.find(user => user.id === data.result.user_id);
         data.result.user.color = this.selectedProject.collaborators.find(user => user.id === data.result.user_id).code_color;
         this.selectedProject.messages = [...this.selectedProject.messages, data.result];
@@ -121,7 +121,7 @@ const useBoardStore = defineStore('board', {
       }
     },
     async refreshLists(data) {
-      console.log(data);
+      
       if (data.verb === 'update') {
         const newList = data.result;
       
@@ -135,13 +135,13 @@ const useBoardStore = defineStore('board', {
           }
           return list;
         });
-        console.log('lists', this.selectedProject.lists);
+        
       
         // Étape 2 : Trier les listes par position après la mise à jour
         this.selectedProject.lists = this.selectedProject.lists.sort((a, b) => a.position - b.position);
 
         if(newList.position<0.001) {
-          console.log('reset position');
+          
           this.selectedProject.lists.forEach((list, index) => {
             list.position = index + 1;
           });
@@ -155,7 +155,7 @@ const useBoardStore = defineStore('board', {
       }
     },
     async refreshCards(data) {
-      console.log(data);
+      
       if (data.verb === 'update') {
         const newCard = data.result;
         const selectedCard = this.selectedProject.lists.flatMap(list => list.cards).find(card => card.id === newCard.id);

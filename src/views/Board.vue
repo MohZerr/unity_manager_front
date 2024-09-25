@@ -68,7 +68,7 @@ export default {
           code_color: this.newList.code_color,
           project_id: this.boardStore.project.id,
         };
-        console.log(list);
+        
         await createList(list);
         this.newList.name = '';
       } catch (error) {
@@ -84,7 +84,7 @@ export default {
      * @return {void} This function does not return anything.
      */
     updatePositionList(event) {
-      console.log('eventList',event);
+      
       const movedList = this.boardStore.selectedProject.lists[event.newIndex];
       const beforeList = this.boardStore.selectedProject.lists[event.newIndex - 1];
       const afterList = this.boardStore.selectedProject.lists[event.newIndex + 1];

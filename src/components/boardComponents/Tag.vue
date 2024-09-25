@@ -161,7 +161,7 @@ export default {
     },
 
    async updateTags() {
-      console.log('update tags');
+      
       this.boardStore.refreshTags()
     },
 

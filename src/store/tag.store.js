@@ -38,12 +38,12 @@ const useTagStore = defineStore('tag', {
     },
 
     addTag(newTag) {
-      console.log('addTag');
+      
       createTag({...newTag, project_id: this.tag.project_id});
     },
 
     editTag(editedTag) {
-      console.log('editedTag');
+      
       updateTag({...editedTag, project_id: this.tag.project_id});
     },
 
