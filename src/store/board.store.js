@@ -148,6 +148,7 @@ const useBoardStore = defineStore('board', {
         }
       }
       if(data.verb === 'create') {
+        data.result.cards = [];
         this.selectedProject.lists = [...this.selectedProject.lists, data.result];
       }
       if(data.verb === 'delete') {
@@ -178,6 +179,7 @@ const useBoardStore = defineStore('board', {
                 } else {
                     // Sinon, on ajoute la nouvelle carte à la liste
                     list.cards.push({...selectedCard, ...newCard});
+                    
                     list.cards.sort((a, b) => a.position - b.position);
                 }
             }
@@ -188,7 +190,7 @@ const useBoardStore = defineStore('board', {
         this.selectedProject.lists = this.selectedProject.lists.map(list =>
           list.id === data.result.list_id ? ({
             ...list,
-            cards: [...list.cards, data.result]
+            cards: [...list.cards || [], data.result]
           }) : list
         );
       };

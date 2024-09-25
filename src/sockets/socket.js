@@ -1,8 +1,11 @@
 // src/sockets/socket.js
 import io from 'socket.io-client';
-
+const {VITE_PROD_URL, VITE_DEV_URL,VITE_ENV} = import.meta.env;
+const socketUrl = VITE_ENV === 'prod'
+  ? VITE_PROD_URL
+  : VITE_DEV_URL;
 // Établir une connexion WebSocket. Assurez-vous que l'URL est correcte.
-const socket = io('http://localhost:4000');
+const socket = io(socketUrl)
 
 const connecting = (firstname) => {
   try {
