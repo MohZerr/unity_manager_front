@@ -121,7 +121,7 @@ export default {
   methods: {
     async selectColor(color) {
       this.newCard.code_color = color;
-      console.log(this.newCard.code_color);
+      
     },
 
     async submitAddCard(id) {
@@ -147,7 +147,7 @@ export default {
     async deleteListFromDatabase(listId) {
       try {
         await deleteList(listId);
-        console.log(`List with ID ${listId} deleted`);
+        
       } catch (error) {
         console.error('Error deleting the list:', error);
       }
@@ -171,9 +171,9 @@ export default {
         const movedCard = this.list.cards[event.moved.newIndex];
         const beforeMovedCard = this.list.cards[event.moved.newIndex - 1];
         const afterMovedCard = this.list.cards[event.moved.newIndex + 1];
-        console.log(movedCard);
-        console.log(beforeMovedCard);
-        console.log(afterMovedCard);
+        
+        
+        
         if (!beforeMovedCard) {
           movedCard.position = afterMovedCard ? afterMovedCard.position*0.99 : 1;
         } else if (!afterMovedCard) {
@@ -188,9 +188,9 @@ export default {
         const addedCard = this.list.cards[event.added.newIndex];
         const beforeAddedCard = this.list.cards[event.added.newIndex - 1];
         const afterAddedCard = this.list.cards[event.added.newIndex + 1];
-        console.log(addedCard);
-        console.log(beforeAddedCard);
-        console.log(afterAddedCard);
+        
+        
+        
         if (!beforeAddedCard) {
           addedCard.position = afterAddedCard ? afterAddedCard.position / 2:1;
         } else if (!afterAddedCard) {
@@ -204,7 +204,7 @@ export default {
     },
 
     async savePositionCard(movedCard) {
-      console.log(movedCard);
+      
       try {
         const card = {
           id: movedCard.id,

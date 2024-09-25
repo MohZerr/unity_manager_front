@@ -38,7 +38,7 @@ function initializeCollaboratorReceived(onCollaboratorReceived) {
 // --------------------board-------------------------
 function initializeBoardEvents(refreshBoard) {
   socket.on('refreshBoard', () => {
-    console.log('refreshBoardEvent');
+    
     if (refreshBoard) {
       refreshBoard();
     }

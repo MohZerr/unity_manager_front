@@ -16,7 +16,7 @@ const useUserStore = defineStore('user', {
       localStorage.setItem('user', JSON.stringify(this.user));
     },
     setUser(user) {
-      console.log('user : ', user);
+      
       this.user = { ...this.user, ...user };
       this.persistToLocalStorage();
     },

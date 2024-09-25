@@ -107,9 +107,9 @@ export default {
 
     async signOutUser() {
       try {
-        console.log('Sign out user with ID:', this.userStore.user.id);
+        
         const response = await signOut();
-        console.log('response :', response);
+        
         if (response) {
           handleTokenExpiry();
         } else {

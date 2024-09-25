@@ -1,7 +1,7 @@
 import axios from './axios';
 
 export async function createTag(tagData) {
-  console.log(tagData);
+  
   try {
     const tag = await axios.post('/tags', {
       name: tagData.name,
